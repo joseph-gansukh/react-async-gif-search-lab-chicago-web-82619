@@ -5,31 +5,23 @@ import GifSearch from '../components/GifSearch'
 export class GifListContainer extends Component {
   constructor(props) {
     super(props)
-
     this.state = {
       gifs: [],
-      url: '',
     }
   }
 
-  newSearch = (query = "dogs") => {
-    console.log(query)
-    this.setState(prevState => ({
-      ...prevState,
-      url: `https://api.giphy.com/v1/gifs/search?q=${query}&api_key=dc6zaTOxFJmzC&rating=g`
-    }))
-    this.forceUpdate()
+  newSearch = (query) => {
+    this.fetchQuery(query)
   }
 
-  fetchQuery = async () => {
-    const res = await fetch(`${this.state.url}`)
+  fetchQuery = async (query = "dogs") => {
+    const res = await fetch(`https://api.giphy.com/v1/gifs/search?q=${query}&api_key=dc6zaTOxFJmzC&rating=g&limit=3`)
     const data = await res.json()
-    const firstThree = data.data.slice(0, 3)
-    const urls = firstThree.map(gif => gif.images.original.url)
+    const urls = data.data.map(img => img.images.original.url)
 
     this.setState(prevState => ({
       ...prevState,
-      gifs: urls,
+      gifs: urls
     }))
   }
 
