@@ -8,11 +8,11 @@ export class GifListContainer extends Component {
 
     this.state = {
       gifs: [],
-      url: 'https://api.giphy.com/v1/gifs/search?q=dog&api_key=dc6zaTOxFJmzC&rating=g',
+      url: '',
     }
   }
 
-  handleSubmit = (query) => {
+  newSearch = (query = "dogs") => {
     console.log(query)
     this.setState(prevState => ({
       ...prevState,
@@ -37,15 +37,11 @@ export class GifListContainer extends Component {
     this.fetchQuery()
   }
 
-  componentDidUpdate() {
-    this.fetchQuery()
-  }
-
   render() {
     return (
       <div>
         <GifList gifs={this.state.gifs}/>
-        <GifSearch handleSubmit={this.handleSubmit}/>
+        <GifSearch newSearch={this.newSearch}/>
       </div>
     )
   }

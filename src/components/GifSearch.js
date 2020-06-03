@@ -14,7 +14,7 @@ export class GifSearch extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault()
-    this.props.handleSubmit(this.state.searchText)
+    this.props.newSearch(this.state.searchText)
     this.setState({
       searchText: ''
     })
